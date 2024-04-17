@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container-principal{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#b-d{
+    width: 100%;
+}
+
+#cat{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+
+    & img{
+        width: 150px;
+    }
+}
+
