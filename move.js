@@ -31,3 +31,15 @@ window.onload = () =>{
         cat.move(key.code);
     };
 };
+
+let btn_p = document.getElementById('btn-p');
+let btn_c = document.getElementById('btn-c');
+let btn_s = document.getElementById('btn-s');
+let title = document.getElementById('title');
+
+btn_p.addEventListener('click', () => { 
+    btn_p.classList.add('hide-down');
+    btn_c.classList.add('hide-up');
+    btn_s.classList.add('hide-up');
+    title.classList.add('hide-up');
+})

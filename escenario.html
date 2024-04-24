@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de gato</title>
-    <link rel="stylesheet" href="escenario.css">
+    <title>Gatos y lluvia</title>
+    <link rel="website icon" href="img/moon_icon.png">
+    <link rel="stylesheet" type="text/css" href="escenario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Escenarios -->
+    <!-- Base del juego -->
     <div class="container-principal">
-        <img src="img/fondo.gif" alt="background desktop" id="b-d">
         <span id="cat">
-            <img src="img/gato.png" alt="cat">
+            <img src="img/cat.png" alt="cat">
         </span>
     </div>
+
+    <!-- Menú del juego -->
+    <div class="menu">
+        <h1 id="title">Gatos y lluvia</h1>
+        <span class="btn-play" id="btn-p">
+            <img src="img/play.png">
+        </span>
+        <span class="btn-colors" id="btn-c">
+            <img src="img/table.png">
+        </span>
+        <span class="btn-setting" id="btn-s">
+            <img src="img/settings.png">
+        </span>
+    </div>
+
     <script src="move.js"></script>
 </body>
 </html>
