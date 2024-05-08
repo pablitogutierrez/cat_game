@@ -2,6 +2,10 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 body{
@@ -41,10 +45,152 @@ body{
         top: 20%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-family: "Pixelify Sans", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 400;
-        font-style: normal;
+    }
+}
+
+.menu-colors{
+    display: grid;
+    grid-template-rows: 80px 1fr;
+    grid-row: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 85%;
+    background: #ECF0F1;
+    outline: 5px solid #17202A;
+    border-radius: 20px;
+    padding: 20px;
+
+    & h1{
+        grid-column: 0 / 2;
+        font-size: 60px;
+        margin-top: -50px;
+    }
+
+    & .menu-colors-scroll{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        place-items: center;
+        grid-row: 2;
+        row-gap: 40px;
+        overflow-y: auto;
+    
+        & .skin-cat-1{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #EC7063;
+            outline: 3px solid #17202A;
+            width: 200px;
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 5px;
+    
+            & .cat-1{
+                width: 140px;
+                filter: drop-shadow(0 0 5px black);
+            }
+    
+            & p{
+                display: inline-block;
+                font-size: 50px;
+            }
+    
+            & .coin{
+                width: 50px;
+                margin-bottom: -10px;
+            }
+        }
+    
+        & .skin-cat-2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #EC7063;
+            outline: 3px solid #17202A;
+            width: 200px;
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 5px;
+    
+            & .cat-2{
+                width: 140px;
+                filter: drop-shadow(0 0 5px black);
+            }
+    
+            & p{
+                display: inline-block;
+                font-size: 50px;
+            }
+    
+            & .coin{
+                width: 50px;
+                margin-bottom: -10px;
+            }
+        }
+    
+        & .skin-cat-3{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #EC7063;
+            outline: 3px solid #17202A;
+            width: 200px;
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 5px;
+    
+            & .cat-3{
+                width: 140px;
+                filter: drop-shadow(0 0 5px black);
+            }
+    
+            & p{
+                display: inline-block;
+                font-size: 50px;
+            }
+    
+            & .coin{
+                width: 50px;
+                margin-bottom: -10px;
+            }
+        }
+
+        & .skin-cat-4{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #EC7063;
+            outline: 3px solid #17202A;
+            width: 200px;
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+    
+            & .cat-4{
+                width: 140px;
+                filter: drop-shadow(0 0 5px black);
+            }
+    
+            & p{
+                display: inline-block;
+                font-size: 50px;
+            }
+    
+            & .coin{
+                width: 50px;
+                margin-bottom: -10px;
+            }
+        }
     }
 }
 
@@ -126,8 +272,6 @@ body{
 .hide-up{
     animation: hide-up .6s ease-in-out forwards;
 }
-
-
 
 .hide{
     display: none;
