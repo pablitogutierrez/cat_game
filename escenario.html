@@ -19,7 +19,7 @@
     </div>
 
     <!-- Menú del juego -->
-    <div class="menu">
+    <div class="menus">
         <h1 id="title">Gatos y lluvia</h1>
         <span class="btn-play" id="btn-p">
             <img src="img/play.png">
@@ -31,10 +31,11 @@
             <img src="img/settings.png">
         </span>
 
-        <div class="menu-colors">
-            <h1>Skins</h1>
+        <div class="menu-c" id="menu-c">
+            <img class="btn-skip-c" id="btn-skip-c" src="img/skip.png">
+            <p>Seleccione su gato</p>
 
-            <div class="menu-colors-scroll">
+            <div class="menu-c-scroll">
                 <span class="skin-cat-1">
                     <img class="cat-1" src="img/cat.png">
                     <span>
@@ -68,8 +69,13 @@
                 </span>   
             </div>
         </div>
+
+        <div class="menu-s" id="menu-s">
+            <img src="img/skip.png" id="btn-skip-s" width="40" height="40">
+
+        </div>
     </div>
 
-    <script src="move.js"></script>
+    <script src="functions.js"></script>
 </body>
 </html>

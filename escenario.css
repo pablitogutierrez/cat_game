@@ -32,7 +32,7 @@ body{
     }
 }
 
-.menu{
+.menus{
     position: absolute;
     top: 0;
     left: 0;
@@ -48,28 +48,35 @@ body{
     }
 }
 
-.menu-colors{
+.menu-c{
     display: grid;
     grid-template-rows: 80px 1fr;
-    grid-row: 1;
-    position: absolute;
+    position: relative;
     top: 50%;
-    left: 50%;
+    left: -35%;
     transform: translate(-50%, -50%);
     width: 65%;
     height: 85%;
     background: #ECF0F1;
     outline: 5px solid #17202A;
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
 
-    & h1{
-        grid-column: 0 / 2;
-        font-size: 60px;
-        margin-top: -50px;
+    & .btn-skip-c{
+        width: 40px;
+        cursor: pointer;
+        position: absolute;
+        top: 30px;
+        left: 30px;
     }
 
-    & .menu-colors-scroll{
+    & p{
+        grid-row: 1;
+        font-size: 60px;
+        text-align: center;
+    }
+
+    & .menu-c-scroll{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         place-items: center;
@@ -175,6 +182,7 @@ body{
             border-radius: 20px;
             padding: 10px;
             cursor: pointer;
+            margin-bottom: 10px;
     
             & .cat-4{
                 width: 140px;
@@ -192,6 +200,29 @@ body{
             }
         }
     }
+
+    & .menu-c-scroll::-webkit-scrollbar{
+        width: 10px;
+    }
+
+    & .menu-c-scroll::-webkit-scrollbar-thumb{
+        background: black;
+        border-radius: 15px;
+    }
+}
+
+.menu-s{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: -35%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 85%;
+    background: #ECF0F1;
+    outline: 5px solid #17202A;
+    border-radius: 20px;
+    padding: 15px;
 }
 
 .btn-play{
@@ -226,6 +257,7 @@ body{
     align-items: center;
     cursor: pointer;
     outline: 3px solid #17202A;
+    transition: 1s;
 
     & img{
         width: 100%;
@@ -258,6 +290,12 @@ body{
     }
 }
 
+@keyframes show-down{
+    to{
+        top: 10%;
+    }
+}
+
 @keyframes hide-up{
     to{
         top: -30%;
@@ -265,14 +303,26 @@ body{
     }
 } 
 
+@keyframes show-menu{
+    to{
+        left: 50%;
+    }
+} 
+
 .hide-down{
     animation: hide-down .6s ease-in-out forwards;
+}
+
+.show-down{
+    animation: show-down .6s ease-in-out forwards;
 }
 
 .hide-up{
     animation: hide-up .6s ease-in-out forwards;
 }
 
-.hide{
-    display: none;
+.show-menu{
+    animation: show-menu .6s ease-in-out forwards;
 }
+
+
