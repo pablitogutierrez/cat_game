@@ -66,14 +66,15 @@ body{
         width: 40px;
         cursor: pointer;
         position: absolute;
-        top: 30px;
-        left: 30px;
+        top: 20px;
+        left: 20px;
     }
 
     & p{
         grid-row: 1;
         font-size: 60px;
         text-align: center;
+        margin-top: -10px;
     }
 
     & .menu-c-scroll{
@@ -213,6 +214,7 @@ body{
 
 .menu-s{
     display: flex;
+    flex-direction: column;
     position: absolute;
     top: 50%;
     left: -35%;
@@ -223,6 +225,42 @@ body{
     outline: 5px solid #17202A;
     border-radius: 20px;
     padding: 15px;
+    gap: 20px;
+
+    & .btn-skip-s{
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        cursor: pointer;
+        top: 20px;
+        left: 20px;
+    }
+
+    & .titulo{
+        text-align: center;
+        font-size: 55px;
+    }
+
+    & span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;    
+    }
+
+    & span p{
+        font-size: 40px;
+    }
+
+    & .img-mute{
+        background: #EC7063;
+        width: 60px;
+        height: 60px;
+        outline: 3px solid #17202A;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+    }
 }
 
 .btn-play{

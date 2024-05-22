@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Música del juego -->
+    <audio id="audio" loop>
+        <source src="music/Planet Popstar 8 Bit Remix - Kirby 64_ The Crystal Shards.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <!-- Base del juego -->
     <div class="container-principal">
         <span id="cat">
@@ -18,7 +24,7 @@
         </span>
     </div>
 
-    <!-- Menú del juego -->
+    <!-- Menús del juego -->
     <div class="menus">
         <h1 id="title">Gatos y lluvia</h1>
         <span class="btn-play" id="btn-p">
@@ -71,8 +77,14 @@
         </div>
 
         <div class="menu-s" id="menu-s">
-            <img src="img/skip.png" id="btn-skip-s" width="40" height="40">
+            <img src="img/skip.png" class="btn-skip-s" id="btn-skip-s">
 
+            <p class="titulo">Opciones del volumen</p>
+
+            <span>
+                <img src="img/mute.png" class="img-mute">
+                <p>Mutear juego</p>
+            </span>
         </div>
     </div>
 
