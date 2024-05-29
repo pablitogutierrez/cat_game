@@ -45,6 +45,7 @@ body{
         top: 20%;
         left: 50%;
         transform: translate(-50%, -50%);
+        text-align: center;
     }
 }
 
@@ -260,6 +261,11 @@ body{
         border-radius: 10px;
         padding: 5px;
         cursor: pointer;
+        transition: .3s;
+    }
+
+    & .color{
+        background: #58D68D;
     }
 }
 
@@ -362,5 +368,4 @@ body{
 .show-menu{
     animation: show-menu .6s ease-in-out forwards;
 }
-
 

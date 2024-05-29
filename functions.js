@@ -11,35 +11,64 @@ let btn_skip_s = document.getElementById('btn-skip-s');
 
 let audio = document.getElementById('audio');
 
+let btn_mute = document.querySelector('.img-mute');
+
+window.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('music') === null) {
+        localStorage.setItem('music', 'true');
+    }
+
+    if(localStorage.getItem('color') === null){
+        localStorage.setItem('color', 'false');
+    }
+
+    if(localStorage.getItem('color') === 'true'){
+        btn_mute.classList.add('color');
+    } else {
+        btn_mute.classList.remove('color');
+    }
+});
+
+btn_mute.addEventListener('click', () => {
+    if (localStorage.getItem('music') === 'true') {
+        localStorage.setItem('color', 'true');
+        localStorage.setItem('music', 'false');
+        btn_mute.classList.add('color');
+    } else {
+        localStorage.setItem('color', 'false');
+        localStorage.setItem('music', 'true');
+        btn_mute.classList.remove('color');
+    }
+});
+
 btn_p.addEventListener('click', () => { 
     btn_p.classList.add('hide-down');
     btn_c.classList.add('hide-up');
     btn_s.classList.add('hide-up');
     title.classList.add('hide-up');
-
-    audio.play();
     
+    if(localStorage.getItem('music') === 'false'){
+        audio.muted = true;
+    } else {
+        audio.muted = false;
+        audio.play();
+    }
+
     const cat = {
-        element : document.getElementById('cat'),
-        leftPosition : 0,
-        step : 15,
-        move : function(direction){
-            switch(direction){
+        element: document.getElementById('cat'),
+        leftPosition: 0,
+        step: 15,
+        move: function(direction) {
+            switch (direction) {
                 case "ArrowRight":
-                    this.leftPosition += this.step;
-                    this.element.style.left = this.leftPosition + "px"; 
-                    break;
                 case "KeyD":
                     this.leftPosition += this.step;
-                    this.element.style.left = this.leftPosition + "px"; 
+                    this.element.style.left = this.leftPosition + "px";
                     break;
                 case "ArrowLeft":
-                    this.leftPosition -= this.step;
-                    this.element.style.left = this.leftPosition + "px"; 
-                    break;
                 case "KeyA":
                     this.leftPosition -= this.step;
-                    this.element.style.left = this.leftPosition + "px"; 
+                    this.element.style.left = this.leftPosition + "px";
                     break;
                 default:
                     break;
