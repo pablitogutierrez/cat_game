@@ -13,7 +13,32 @@ let audio = document.getElementById('audio');
 
 let btn_mute = document.querySelector('.img-mute');
 
+let cats = document.querySelectorAll('.skin-cat-1, .skin-cat-2');
+
+let first_cat = document.querySelector('.skin-cat-1');
+
+const coins = parseInt(document.getElementById('coins').textContent, 10);
+
+let array_cats = [];
+
+cats.forEach(e =>{
+    e.addEventListener('click', () => {
+        const pValue = parseInt(e.querySelector('p').textContent, 10);
+
+        array_cats.forEach(e => {
+        });
+
+        if(coins < pValue){
+            alert('No podes comprarlo, sos pobre');
+        }
+    });
+});
+
 window.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('cat-selected') == null){
+        localStorage.setItem('cat-selected', first_cat.id);
+    }
+
     if(localStorage.getItem('music') === null) {
         localStorage.setItem('music', 'true');
     }
@@ -102,3 +127,4 @@ btn_skip_s.addEventListener('click', () => {
     btn_s.classList.remove('hide-up');
     menu_s.classList.remove('show-menu');
 });
+

@@ -84,23 +84,33 @@ body{
         place-items: center;
         grid-row: 2;
         row-gap: 40px;
+        padding: 5px;
         overflow-y: auto;
     
         & .skin-cat-1{
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #EC7063;
+            background: #58D68D;
             outline: 3px solid #17202A;
             width: 200px;
+            height: 180px;
             border-radius: 20px;
             padding: 10px;
             cursor: pointer;
-            margin-top: 5px;
+
+            & .fingerprint{
+                width: 70px;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+            }
     
             & .cat-1{
-                width: 140px;
+                width: 160px;
+                margin-left: -10px;
                 filter: drop-shadow(0 0 5px black);
             }
     
@@ -116,6 +126,7 @@ body{
         }
     
         & .skin-cat-2{
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -123,71 +134,21 @@ body{
             background: #EC7063;
             outline: 3px solid #17202A;
             width: 200px;
+            height: 180px;
             border-radius: 20px;
             padding: 10px;
             cursor: pointer;
-            margin-top: 5px;
+
+            & .fingerprint{
+                width: 70px;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+            }
     
             & .cat-2{
                 width: 140px;
-                filter: drop-shadow(0 0 5px black);
-            }
-    
-            & p{
-                display: inline-block;
-                font-size: 50px;
-            }
-    
-            & .coin{
-                width: 50px;
-                margin-bottom: -10px;
-            }
-        }
-    
-        & .skin-cat-3{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #EC7063;
-            outline: 3px solid #17202A;
-            width: 200px;
-            border-radius: 20px;
-            padding: 10px;
-            cursor: pointer;
-            margin-top: 5px;
-    
-            & .cat-3{
-                width: 140px;
-                filter: drop-shadow(0 0 5px black);
-            }
-    
-            & p{
-                display: inline-block;
-                font-size: 50px;
-            }
-    
-            & .coin{
-                width: 50px;
-                margin-bottom: -10px;
-            }
-        }
-
-        & .skin-cat-4{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #EC7063;
-            outline: 3px solid #17202A;
-            width: 200px;
-            border-radius: 20px;
-            padding: 10px;
-            cursor: pointer;
-            margin-bottom: 10px;
-    
-            & .cat-4{
-                width: 140px;
+                margin-left: -10px;
                 filter: drop-shadow(0 0 5px black);
             }
     
@@ -324,6 +285,26 @@ body{
 
     & img{
         width: 100%;
+    }
+}
+
+.coins{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    background: #ECF0F1;
+    outline: 3px solid #17202A;
+
+    & img{
+        width: 50px;
+    }
+
+    & p{
+        font-size: 45px;
     }
 }
 
