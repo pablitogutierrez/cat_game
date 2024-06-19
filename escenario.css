@@ -21,7 +21,7 @@ body{
     background: #85C1E9;
 }
 
-#cat{
+.cat{
     width: 150px;
     height: 150px;
     position: absolute;
@@ -161,6 +161,10 @@ body{
                 width: 50px;
                 margin-bottom: -10px;
             }
+        }
+
+        & .color{
+            background: #58D68D;
         }
     }
 

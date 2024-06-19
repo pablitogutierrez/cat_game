@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <center>
+        <button id="btn-money" style="position: absolute; z-index: 10;">
+            Subir dinero
+        </button>
+    </center>
     <!-- Música del juego -->
     <audio id="audio" loop>
         <source src="music/Planet Popstar 8 Bit Remix - Kirby 64_ The Crystal Shards.mp3" type="audio/mpeg">
@@ -19,8 +24,16 @@
 
     <!-- Base del juego -->
     <div class="container-principal">
-        <span id="cat">
-            <img src="img/cat_1.png" alt="cat">
+        <span class="cat">
+            <img id="cat-1" class="cat-img" src="img/cat_1.png">
+            <img id="cat-2" class="cat-img" src="img/cat_2.png">
+            <img id="cat-3" class="cat-img" src="img/cat_3.png">
+            <img id="cat-4" class="cat-img" src="img/cat_4.png">
+            <img id="cat-5" class="cat-img" src="img/cat_5.png">
+            <img id="cat-6" class="cat-img" src="img/cat_6.png">
+            <img id="cat-7" class="cat-img" src="img/cat_7.png">
+            <img id="cat-8" class="cat-img" src="img/cat_8.png">
+            <img id="cat-9" class="cat-img" src="img/cat_9.png">
         </span>
     </div>
 
@@ -49,6 +62,7 @@
                 <span class="skin-cat-1" id="cat-1">
                     <img class="fingerprint" src="img/fingerprint.png">
                     <img class="cat-1" src="img/cat_1.png">
+                    <span></span>
                 </span>
     
                 <span class="skin-cat-2" id="cat-2">
@@ -88,7 +102,7 @@
                     <img class="cat-2" src="img/cat_6.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
+                        <p>11000</p>
                     </span>
                 </span>  
                 <span class="skin-cat-2" id="cat-7">

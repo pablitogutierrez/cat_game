@@ -15,28 +15,91 @@ let btn_mute = document.querySelector('.img-mute');
 
 let cats = document.querySelectorAll('.skin-cat-1, .skin-cat-2');
 
-let first_cat = document.querySelector('.skin-cat-1');
+let cats_screen = document.querySelectorAll('.cat-img');
 
-const coins = parseInt(document.getElementById('coins').textContent, 10);
+let first_cat = document.querySelector('.skin-cat-1');
 
 let array_cats = [];
 
+let btn_money = document.getElementById('btn-money');
+
+btn_money.addEventListener('click', () => {
+    localStorage.setItem('coins', parseInt(localStorage.getItem('coins'), 10) + 1000);
+    console.log(localStorage.getItem('coins'));
+});
+
+function check_cats(){
+    cats.forEach(e => {
+        if(localStorage.getItem('cats').includes(e.id)){
+            e.querySelector('span').style.display = 'none';
+            e.classList.add('color');
+        }
+    });
+}
+
+function check_selected(){
+    cats.forEach(e => {
+        if(e.id != localStorage.getItem('cat-selected')){
+            e.querySelector('.fingerprint').style.display = 'none';
+            
+        } else {
+            e.querySelector('.fingerprint').style.display = 'block';
+        }
+    });
+
+    cats_screen.forEach(e => {
+        if(localStorage.getItem('cat-selected') != e.id){
+            e.style.display = 'none';
+        } else {
+            e.style.display = 'block';  
+        }
+    });
+}
+
 cats.forEach(e =>{
     e.addEventListener('click', () => {
-        const pValue = parseInt(e.querySelector('p').textContent, 10);
+        if(!localStorage.getItem('cats').includes(e.id)){
+            let coins = parseInt(document.getElementById('coins').textContent, 10);
+            let pValue = parseInt(e.querySelector('p').textContent, 10);
+    
+            if(coins < pValue){
+                alert('No tiene dinero suficiente.');
+            } else {
+                coins -= pValue;
+                document.getElementById('coins').textContent = coins;
+                localStorage.setItem('coins', coins);
+    
+                if(!array_cats.includes(e.id)){
+                    array_cats.push(e.id);
+                    localStorage.setItem('cats', JSON.stringify(array_cats));
+                }
 
-        array_cats.forEach(e => {
-        });
-
-        if(coins < pValue){
-            alert('No podes comprarlo, sos pobre');
+                check_cats();
+                check_selected();
+            }
+        } else {
+            localStorage.setItem('cat-selected', e.id);
+            
+            check_selected();
         }
     });
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+    check_cats();
+    check_selected();
+
+    if(localStorage.getItem('coins') == null){
+        localStorage.setItem('coins', 0);
+        document.getElementById('coins').textContent = localStorage.getItem('coins');
+    } else {
+        document.getElementById('coins').textContent = localStorage.getItem('coins');
+    }
+
     if(localStorage.getItem('cat-selected') == null){
         localStorage.setItem('cat-selected', first_cat.id);
+        array_cats.push(first_cat.id);
+        localStorage.setItem('cats', JSON.stringify(array_cats));
     }
 
     if(localStorage.getItem('music') === null) {
@@ -80,20 +143,28 @@ btn_p.addEventListener('click', () => {
     }
 
     const cat = {
-        element: document.getElementById('cat'),
+        element: document.querySelector('.cat'),
         leftPosition: 0,
         step: 15,
         move: function(direction) {
+            const container = document.querySelector('.container-principal');
+            const containerWidth = container.offsetWidth;
+            const catWidth = this.element.offsetWidth;
+
             switch (direction) {
                 case "ArrowRight":
                 case "KeyD":
-                    this.leftPosition += this.step;
-                    this.element.style.left = this.leftPosition + "px";
+                    if (this.leftPosition + this.step + catWidth <= containerWidth) {
+                        this.leftPosition += this.step;
+                        this.element.style.left = this.leftPosition + "px";
+                    }
                     break;
                 case "ArrowLeft":
                 case "KeyA":
-                    this.leftPosition -= this.step;
-                    this.element.style.left = this.leftPosition + "px";
+                    if (this.leftPosition - this.step >= 0) {
+                        this.leftPosition -= this.step;
+                        this.element.style.left = this.leftPosition + "px";
+                    }
                     break;
                 default:
                     break;
