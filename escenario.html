@@ -6,16 +6,14 @@
     <title>Gatos y lluvia</title>
     <link rel="website icon" href="img/moon_icon.png">
     <link rel="stylesheet" type="text/css" href="escenario.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <center>
-        <button id="btn-money" style="position: absolute; z-index: 10;">
-            Subir dinero
-        </button>
-    </center>
+    <canvas id="canvas" class="container-principal"></canvas>
+
     <!-- Música del juego -->
     <audio id="audio" loop>
         <source src="music/Planet Popstar 8 Bit Remix - Kirby 64_ The Crystal Shards.mp3" type="audio/mpeg">
@@ -70,7 +68,7 @@
                     <img class="cat-2" src="img/cat_2.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>1000</p>
+                        <p>2000</p>
                     </span>
                 </span>
                 <span class="skin-cat-2" id="cat-3">
@@ -78,7 +76,7 @@
                     <img class="cat-2" src="img/cat_3.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>3000</p>
+                        <p>4500</p>
                     </span>
                 </span>   
                 <span class="skin-cat-2" id="cat-4">
@@ -86,7 +84,7 @@
                     <img class="cat-2" src="img/cat_4.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
+                        <p>7500</p>
                     </span>
                 </span>  
                 <span class="skin-cat-2" id="cat-5">
@@ -102,7 +100,7 @@
                     <img class="cat-2" src="img/cat_6.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>11000</p>
+                        <p>10000</p>
                     </span>
                 </span>  
                 <span class="skin-cat-2" id="cat-7">
@@ -110,7 +108,7 @@
                     <img class="cat-2" src="img/cat_7.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
+                        <p>12000</p>
                     </span>
                 </span>  
                 <span class="skin-cat-2" id="cat-8">
@@ -118,7 +116,7 @@
                     <img class="cat-2" src="img/cat_8.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
+                        <p>14500</p>
                     </span>
                 </span>  
                 <span class="skin-cat-2" id="cat-9">
@@ -126,7 +124,7 @@
                     <img class="cat-2" src="img/cat_9.png">
                     <span>
                         <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
+                        <p>16000</p>
                     </span>
                 </span>  
             </div>
@@ -135,7 +133,7 @@
         <div class="menu-s" id="menu-s">
             <img src="img/skip.png" class="btn-skip-s" id="btn-skip-s">
 
-            <p class="titulo">Opciones del volumen</p>
+            <p class="titulo">Ajustes</p>
 
             <span>
                 <img src="img/mute.png" class="img-mute">
@@ -143,7 +141,6 @@
             </span>
         </div>
     </div>
-
     <script src="functions.js"></script>
 </body>
 </html>

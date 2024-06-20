@@ -2,8 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Pixelify Sans", sans-serif;
-    font-optical-sizing: auto;
+    font-family: "Press Start 2P", system-ui;
     font-weight: 400;
     font-style: normal;
 }
@@ -13,10 +12,6 @@ body{
 }
 
 .container-principal{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
     position: relative;
     background: #85C1E9;
 }
@@ -32,6 +27,10 @@ body{
     }
 }
 
+.change-direction{
+    transform: scaleX(-1);
+}
+
 .menus{
     position: absolute;
     top: 0;
@@ -40,7 +39,7 @@ body{
     height: 100vh;
 
     & h1{
-        font-size: 80px;
+        font-size: 50px;
         position: absolute;
         top: 20%;
         left: 50%;
@@ -59,8 +58,7 @@ body{
     width: 65%;
     height: 85%;
     background: #ECF0F1;
-    outline: 5px solid #17202A;
-    border-radius: 20px;
+    outline: 5px solid #111;
     padding: 15px;
 
     & .btn-skip-c{
@@ -73,9 +71,9 @@ body{
 
     & p{
         grid-row: 1;
-        font-size: 60px;
+        font-size: 38px;
         text-align: center;
-        margin-top: -10px;
+        margin-top: 10px;
     }
 
     & .menu-c-scroll{
@@ -94,10 +92,9 @@ body{
             justify-content: center;
             align-items: center;
             background: #58D68D;
-            outline: 3px solid #17202A;
+            outline: 5px solid #111;
             width: 200px;
             height: 180px;
-            border-radius: 20px;
             padding: 10px;
             cursor: pointer;
 
@@ -111,17 +108,7 @@ body{
             & .cat-1{
                 width: 160px;
                 margin-left: -10px;
-                filter: drop-shadow(0 0 5px black);
-            }
-    
-            & p{
-                display: inline-block;
-                font-size: 50px;
-            }
-    
-            & .coin{
-                width: 50px;
-                margin-bottom: -10px;
+                filter: drop-shadow(0 0 5px #111);
             }
         }
     
@@ -132,10 +119,9 @@ body{
             justify-content: center;
             align-items: center;
             background: #EC7063;
-            outline: 3px solid #17202A;
+            outline: 5px solid #111;
             width: 200px;
             height: 180px;
-            border-radius: 20px;
             padding: 10px;
             cursor: pointer;
 
@@ -149,17 +135,22 @@ body{
             & .cat-2{
                 width: 140px;
                 margin-left: -10px;
-                filter: drop-shadow(0 0 5px black);
+                filter: drop-shadow(0 0 5px #111);
+            }
+
+            & span{
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
     
             & p{
-                display: inline-block;
-                font-size: 50px;
+                font-size: 30px;
             }
     
             & .coin{
-                width: 50px;
-                margin-bottom: -10px;
+                width: 40px;
+                margin-top: 5px;
             }
         }
 
@@ -173,8 +164,7 @@ body{
     }
 
     & .menu-c-scroll::-webkit-scrollbar-thumb{
-        background: black;
-        border-radius: 15px;
+        background: #111;
     }
 }
 
@@ -188,8 +178,7 @@ body{
     width: 65%;
     height: 85%;
     background: #ECF0F1;
-    outline: 5px solid #17202A;
-    border-radius: 20px;
+    outline: 5px solid #111;
     padding: 15px;
     gap: 20px;
 
@@ -204,7 +193,8 @@ body{
 
     & .titulo{
         text-align: center;
-        font-size: 55px;
+        font-size: 40px;
+        margin-top: 10px;
     }
 
     & span{
@@ -215,15 +205,15 @@ body{
     }
 
     & span p{
-        font-size: 40px;
+        font-size: 35px;
+        margin-top: 5px;
     }
 
     & .img-mute{
         background: #EC7063;
         width: 60px;
         height: 60px;
-        outline: 3px solid #17202A;
-        border-radius: 10px;
+        outline: 3px solid #111;
         padding: 5px;
         cursor: pointer;
         transition: .3s;
@@ -241,13 +231,12 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     background: #ECF0F1;
-    border-radius: 20px;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    outline: 5px solid #17202A;
+    outline: 5px solid #111;
 
     & img{
         width: 100%;
@@ -260,13 +249,11 @@ body{
     top: 15px;
     right: 15px;
     background: #ECF0F1;
-    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    outline: 3px solid #17202A;
-    transition: 1s;
+    outline: 3px solid #111;
 
     & img{
         width: 100%;
@@ -279,13 +266,12 @@ body{
     top: 15px;
     right: 110px;
     background: #ECF0F1;
-    border-radius: 15px;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    outline: 3px solid #17202A;
+    outline: 3px solid #111;
 
     & img{
         width: 100%;
@@ -297,18 +283,19 @@ body{
     top: 15px;
     left: 15px;
     padding: 5px;
-    border-radius: 15px;
     display: flex;
     align-items: center;
+    gap: 5px;
     background: #ECF0F1;
-    outline: 3px solid #17202A;
+    outline: 3px solid #111;
 
     & img{
         width: 50px;
     }
 
     & p{
-        font-size: 45px;
+        margin-top: 5px;
+        font-size: 30px;
     }
 }
 
@@ -352,5 +339,4 @@ body{
 
 .show-menu{
     animation: show-menu .6s ease-in-out forwards;
-}
-
+}  
