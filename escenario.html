@@ -22,6 +22,20 @@
 
     <!-- Base del juego -->
     <div class="container-principal">
+        <!-- Monedas del juego -->
+        <span class="coins">
+            <img src="img/coin.png">
+            <p id="coins">0</p>
+        </span>
+
+        <!-- Vidas del gato-->
+        <span class="hearts" id="hearts">
+            <img src="img/heart.png">
+            <img src="img/heart.png">
+            <img src="img/heart.png">
+        </span>
+
+        <!-- Skins del gato-->
         <span class="cat">
             <img id="cat-1" class="cat-img" src="img/cat_1.png">
             <img id="cat-2" class="cat-img" src="img/cat_2.png">
@@ -33,112 +47,110 @@
             <img id="cat-8" class="cat-img" src="img/cat_8.png">
             <img id="cat-9" class="cat-img" src="img/cat_9.png">
         </span>
-    </div>
 
-    <!-- Menús del juego -->
-    <div class="menus">
-        <h1 id="title">Gatos y lluvia</h1>
-        <span class="btn-play" id="btn-p">
-            <img src="img/play.png">
-        </span>
-        <span class="btn-colors" id="btn-c">
-            <img src="img/table.png">
-        </span>
-        <span class="btn-setting" id="btn-s">
-            <img src="img/settings.png">
-        </span>
-        <span class="coins">
-            <img src="img/coin.png">
-            <p id="coins">0</p>
-        </span>
-
-        <div class="menu-c" id="menu-c">
-            <img class="btn-skip-c" id="btn-skip-c" src="img/skip.png">
-            <p>Seleccione su gato</p>
-
-            <div class="menu-c-scroll">
-                <span class="skin-cat-1" id="cat-1">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-1" src="img/cat_1.png">
-                    <span></span>
-                </span>
-    
-                <span class="skin-cat-2" id="cat-2">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_2.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>2000</p>
-                    </span>
-                </span>
-                <span class="skin-cat-2" id="cat-3">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_3.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>4500</p>
-                    </span>
-                </span>   
-                <span class="skin-cat-2" id="cat-4">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_4.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>7500</p>
-                    </span>
-                </span>  
-                <span class="skin-cat-2" id="cat-5">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_5.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>8000</p>
-                    </span>
-                </span>  
-                <span class="skin-cat-2" id="cat-6">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_6.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>10000</p>
-                    </span>
-                </span>  
-                <span class="skin-cat-2" id="cat-7">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_7.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>12000</p>
-                    </span>
-                </span>  
-                <span class="skin-cat-2" id="cat-8">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_8.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>14500</p>
-                    </span>
-                </span>  
-                <span class="skin-cat-2" id="cat-9">
-                    <img class="fingerprint" src="img/fingerprint.png">
-                    <img class="cat-2" src="img/cat_9.png">
-                    <span>
-                        <img class="coin" src="img/coin.png"> 
-                        <p>16000</p>
-                    </span>
-                </span>  
-            </div>
-        </div>
-
-        <div class="menu-s" id="menu-s">
-            <img src="img/skip.png" class="btn-skip-s" id="btn-skip-s">
-
-            <p class="titulo">Ajustes</p>
-
-            <span>
-                <img src="img/mute.png" class="img-mute">
-                <p>Mutear juego</p>
+        <!-- Menús del juego -->
+        <div class="menus">
+            <h1 id="title">Gatos y lluvia</h1>
+            <span class="btn-play" id="btn-p">
+                <img src="img/play.png">
             </span>
+            <span class="btn-colors" id="btn-c">
+                <img src="img/table.png">
+            </span>
+            <span class="btn-setting" id="btn-s">
+                <img src="img/settings.png">
+            </span>
+
+            <!-- Menu de la apariencia del gato -->
+            <div class="menu-c" id="menu-c">
+                <img class="btn-skip-c" id="btn-skip-c" src="img/skip.png">
+                <p>Seleccione su gato</p>
+
+                <div class="menu-c-scroll">
+                    <span class="skin-cat-1" id="cat-1">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-1" src="img/cat_1.png">
+                        <span></span>
+                    </span>
+        
+                    <span class="skin-cat-2" id="cat-2">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_2.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>2000</p>
+                        </span>
+                    </span>
+                    <span class="skin-cat-2" id="cat-3">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_3.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>4500</p>
+                        </span>
+                    </span>   
+                    <span class="skin-cat-2" id="cat-4">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_4.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>7500</p>
+                        </span>
+                    </span>  
+                    <span class="skin-cat-2" id="cat-5">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_5.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>8000</p>
+                        </span>
+                    </span>  
+                    <span class="skin-cat-2" id="cat-6">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_6.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>10000</p>
+                        </span>
+                    </span>  
+                    <span class="skin-cat-2" id="cat-7">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_7.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>12000</p>
+                        </span>
+                    </span>  
+                    <span class="skin-cat-2" id="cat-8">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_8.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>14500</p>
+                        </span>
+                    </span>  
+                    <span class="skin-cat-2" id="cat-9">
+                        <img class="fingerprint" src="img/fingerprint.png">
+                        <img class="cat-2" src="img/cat_9.png">
+                        <span>
+                            <img class="coin" src="img/coin.png"> 
+                            <p>16000</p>
+                        </span>
+                    </span>  
+                </div>
+            </div>
+
+            <!-- Menu de los ajustes del juego -->
+            <div class="menu-s" id="menu-s">
+                <img src="img/skip.png" class="btn-skip-s" id="btn-skip-s">
+
+                <p class="titulo">Ajustes</p>
+
+                <span>
+                    <img src="img/mute.png" class="img-mute">
+                    <p>Mutear juego</p>
+                </span>
+            </div>
         </div>
     </div>
     <script src="functions.js"></script>

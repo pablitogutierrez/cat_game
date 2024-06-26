@@ -17,6 +17,8 @@ let cats = document.querySelectorAll('.skin-cat-1, .skin-cat-2');
 let cats_screen = document.querySelectorAll('.cat-img');
 let array_cats = ['cat-1'];
 
+let hearts = document.getElementById('hearts');
+
 // Obtener el canvas y su contexto
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -57,8 +59,28 @@ function animateFish() {
         pescado.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
     }
 
+    // Verificar si las imágenes se tocan
+    areImagesTouching();
+
     // Solicitar siguiente frame de animación
     requestAnimationFrame(animateFish);
+}
+
+function areImagesTouching() {
+    // Obtener la imagen del gato desde el DOM
+    let imgCatRect = document.getElementById(localStorage.getItem('cat-selected')).getBoundingClientRect();
+    let fishRect = {
+        left: pescado.x,
+        right: pescado.x,
+        top: pescado.y,
+        bottom: pescado.y
+    };
+
+    if (imgCatRect.right < fishRect.left || imgCatRect.left > fishRect.right || imgCatRect.bottom < fishRect.top || imgCatRect.top > fishRect.bottom) {
+        console.log('Las imágenes no se tocan.');
+    } else {
+        console.log('Las imágenes se tocaron.');
+    }
 }
 
 function check_cats(){
@@ -89,6 +111,7 @@ function check_selected(){
     });
 }
 
+//Logica para comprar un gato
 cats.forEach(e =>{
     e.addEventListener('click', () => {
         if(!localStorage.getItem('cats').includes(e.id)){
@@ -175,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cat.startAutoMove();
 });
 
-
+//Movimiento automático del gato para darle una animación
 const cat = {
     element: document.querySelector('.cat'),
     container: document.querySelector('.container-principal'),
@@ -226,11 +249,13 @@ const cat = {
 };
 
 btn_p.addEventListener('click', () => { 
-    btn_p.classList.add('hide-down');
+    btn_p.classList.add('hide_down');
 
-    btn_c.classList.add('hide-up');
-    btn_s.classList.add('hide-up');
-    title.classList.add('hide-up');
+    btn_c.classList.add('hide_up');
+    btn_s.classList.add('hide_up');
+    title.classList.add('hide_up');
+
+    hearts.classList.add('show_hearts');
     
     if(localStorage.getItem('mute') === 'true'){
         audio.muted = true;
@@ -293,24 +318,24 @@ btn_mute.addEventListener('click', () => {
 });
 
 btn_c.addEventListener('click', () => {
-    btn_s.classList.toggle('hide-up');
-    menu_c.classList.toggle('show-menu');
+    btn_s.classList.toggle('hide_up');
+    menu_c.classList.toggle('show_menu');
 });
 
 btn_skip_c.addEventListener('click', () => {
-    btn_c.classList.remove('hide-up');
-    btn_s.classList.remove('hide-up');
-    menu_c.classList.remove('show-menu');
+    btn_c.classList.remove('hide_up');
+    btn_s.classList.remove('hide_up');
+    menu_c.classList.remove('show_menu');
 });
 
 btn_s.addEventListener('click', () => {
-    btn_c.classList.toggle('hide-up');
-    menu_s.classList.toggle('show-menu');
+    btn_c.classList.toggle('hide_up');
+    menu_s.classList.toggle('show_menu');
 });
 
 btn_skip_s.addEventListener('click', () => {
-    btn_c.classList.remove('hide-up');
-    btn_s.classList.remove('hide-up');
-    menu_s.classList.remove('show-menu');
+    btn_c.classList.remove('hide_up');
+    btn_s.classList.remove('hide_up');
+    menu_s.classList.remove('show_menu');
 });
 

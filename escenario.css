@@ -12,7 +12,6 @@ body{
 }
 
 .container-principal{
-    position: relative;
     background: #85C1E9;
 }
 
@@ -50,6 +49,7 @@ body{
 
 .menu-c{
     display: grid;
+    visibility: hidden;
     grid-template-rows: 80px 1fr;
     position: relative;
     top: 50%;
@@ -170,6 +170,7 @@ body{
 
 .menu-s{
     display: flex;
+    visibility: hidden;
     flex-direction: column;
     position: absolute;
     top: 50%;
@@ -299,44 +300,82 @@ body{
     }
 }
 
-@keyframes hide-down{
-    to{
-        top: 120%;
-        display: none;
+.hearts{
+    position: absolute;
+    visibility: hidden;
+    top: -80px;
+    right: 15px;
+    transition: 1s;
+    background: #ECF0F1;
+    padding: 5px;
+    outline: 3px solid #111;
+    z-index: 10;
+
+    & img{
+        width: 60px;
     }
 }
 
-@keyframes show-down{
+@keyframes hide_down{
+    to{
+        top: 120%;
+        visibility: hidden;
+    }
+}
+
+@keyframes show_down{
     to{
         top: 10%;
     }
 }
 
-@keyframes hide-up{
+@keyframes hide_up{
     to{
         top: -30%;
-        display: none;
+        visibility: hidden;
     }
 } 
 
-@keyframes show-menu{
+@keyframes show_menu{
     to{
+        visibility: visible;
         left: 50%;
     }
 } 
 
-.hide-down{
-    animation: hide-down .6s ease-in-out forwards;
+@keyframes show_hearts{
+    to{
+        visibility: visible;
+        top: 15px;
+    }
 }
 
-.show-down{
-    animation: show-down .6s ease-in-out forwards;
+@keyframes hide_hearts{
+    to{
+        top: -100px;
+    }
 }
 
-.hide-up{
-    animation: hide-up .6s ease-in-out forwards;
+.hide_down{
+    animation: hide_down .6s ease-in-out forwards;
 }
 
-.show-menu{
-    animation: show-menu .6s ease-in-out forwards;
+.show_down{
+    animation: show_down .6s ease-in-out forwards;
+}
+
+.hide_up{
+    animation: hide_up .6s ease-in-out forwards;
+}
+
+.show_menu{
+    animation: show_menu .6s ease-in-out forwards;
 }  
+
+.show_hearts{
+    animation: show_hearts .6s ease-in forwards; 
+}
+
+.hide_hearts{
+    animation: hide_hearts .6s ease-out forwards; 
+}
