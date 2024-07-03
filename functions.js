@@ -31,15 +31,18 @@ canvas.height = window.innerHeight;
 const imgPescado = new Image();
 imgPescado.src = './img/fish.png'; // Ruta de la imagen del pescado
 
-// Propiedades del pescado
-let pescado = {
-    x: Math.random() * canvas.width,    // Posición inicial en el centro horizontal
-    y: -100,                // Posición inicial arriba del canvas
-    velocidad: 4,           // Velocidad de caída del pescado      
-};
+let pescados = [];
+
+function createFish(){
+    return {
+        x: Math.random() * canvas.width,
+        y: -100,
+        velocidad: 4,
+    }
+}
 
 // Función para dibujar el pescado en una posición específica
-function drawFish() {
+function drawFish(pescado) {
     ctx.drawImage(imgPescado, pescado.x, pescado.y, 80, 40);
 }
 
@@ -47,26 +50,32 @@ function drawFish() {
 function animateFish() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
 
-    // Actualizar posición del pescado
-    pescado.y += pescado.velocidad;
+    pescados.forEach((pescado, index) => {
+        // Actualizar posición del pescado
+        pescado.y += pescado.velocidad;
 
-    // Dibujar el pescado en su nueva posición
-    drawFish();
+        // Dibujar el pescado en su nueva posición
+        drawFish(pescado);
 
-    // Si el pescado sale del canvas, reiniciar posición y posición X aleatoria
-    if (pescado.y > canvas.height) {
-        pescado.y = -100; // Reiniciar en la parte superior
-        pescado.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
-    }
+        // Si el pescado sale del canvas, reiniciar posición y posición X aleatoria
+        if (pescado.y > canvas.height) {
+            pescado.y = -100; // Reiniciar en la parte superior
+            pescado.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
+        }
 
-    // Verificar si las imágenes se tocan
-    areImagesTouching();
+        if(areImagesTouching(pescado)){
+            let coins = parseInt(document.getElementById('coins').textContent, 10);
+            coins += 100;
+            document.getElementById('coins').textContent = coins;
+            localStorage.setItem('coins', coins);
+            pescados.splice(index, 1);
+        }
+    });
 
-    // Solicitar siguiente frame de animación
     requestAnimationFrame(animateFish);
 }
 
-function areImagesTouching() {
+function areImagesTouching(pescado) {
     // Obtener la imagen del gato desde el DOM
     let imgCatRect = document.getElementById(localStorage.getItem('cat-selected')).getBoundingClientRect();
     let fishRect = {
@@ -77,9 +86,9 @@ function areImagesTouching() {
     };
 
     if (imgCatRect.right < fishRect.left || imgCatRect.left > fishRect.right || imgCatRect.bottom < fishRect.top || imgCatRect.top > fishRect.bottom) {
-        console.log('Las imágenes no se tocan.');
+        return false;
     } else {
-        console.log('Las imágenes se tocaron.');
+        return true;
     }
 }
 
@@ -249,6 +258,8 @@ const cat = {
 };
 
 btn_p.addEventListener('click', () => { 
+    var speed = 6000;
+
     btn_p.classList.add('hide_down');
 
     btn_c.classList.add('hide_up');
@@ -263,6 +274,14 @@ btn_p.addEventListener('click', () => {
         audio.muted = false;
         audio.play();
     }
+
+    setInterval(() => {
+        speed -= 1000;
+    }, 16000)
+
+    setInterval(() => {
+        pescados.push(createFish());
+    }, speed);
 
     cat.stopAutoMove();
 
