@@ -28,64 +28,126 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // Crear una nueva imagen de pescado
-const imgPescado = new Image();
-imgPescado.src = './img/fish.png'; // Ruta de la imagen del pescado
+const imgFish = new Image();
+imgFish.src = './img/fish.png'; // Ruta de la imagen del pescado
 
-let pescados = [];
+const imgStone = new Image();
+imgStone.src = './img/stone.jpg';
 
-function createFish(){
+let objects = [];
+let animationIDs = [];
+
+function createObject(type){
+    let width, height;
+    
+    switch(type){
+        case 'fish':
+            width = 80;
+            height = 40;
+            break;
+        case 'stone':
+            width = 90;
+            height = 80;
+    }
     return {
         x: Math.random() * canvas.width,
         y: -100,
         velocidad: 4,
+        type: type,
+        width: width,
+        height: height,
     }
 }
 
 // Función para dibujar el pescado en una posición específica
-function drawFish(pescado) {
-    ctx.drawImage(imgPescado, pescado.x, pescado.y, 80, 40);
+function drawObject(img, object) {
+    ctx.drawImage(img, object.x, object.y, object.width, object.height);
 }
 
 // Función para animar la caída del pescado
-function animateFish() {
+function animateObjects() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
 
-    pescados.forEach((pescado, index) => {
+    objects.forEach((obj, index) => {
         // Actualizar posición del pescado
-        pescado.y += pescado.velocidad;
+        obj.y += obj.velocidad;
+
+        let img = obj.type  == 'fish' ? imgFish : imgStone;
 
         // Dibujar el pescado en su nueva posición
-        drawFish(pescado);
+        drawObject(img, obj);
 
         // Si el pescado sale del canvas, reiniciar posición y posición X aleatoria
-        if (pescado.y > canvas.height) {
-            pescado.y = -100; // Reiniciar en la parte superior
-            pescado.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
+        if (obj.y > canvas.height) {
+            obj.y = -100; // Reiniciar en la parte superior
+            obj.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
         }
 
-        if(areImagesTouching(pescado)){
-            let coins = parseInt(document.getElementById('coins').textContent, 10);
-            coins += 100;
-            document.getElementById('coins').textContent = coins;
-            localStorage.setItem('coins', coins);
-            pescados.splice(index, 1);
+        if(areImagesTouchingCat(obj)){
+            switch(obj.type){
+                case 'fish':
+                    let coins = parseInt(document.getElementById('coins').textContent, 10);
+                    coins += 100;
+                    document.getElementById('coins').textContent = coins;
+                    localStorage.setItem('coins', coins);
+                    objects.splice(index, 1);
+                    break;
+                case 'stone':
+                    let heartsImg = hearts.getElementsByTagName('img');
+                    if(heartsImg.length > 0){
+                        hearts.removeChild(heartsImg[heartsImg.length - 1]);
+                        if(heartsImg.length == 0) {
+                            stopGame();
+                            showGameOver();
+                        }
+                    }
+                    objects.splice(index, 1);
+                    break;
+            }
         }
     });
 
-    requestAnimationFrame(animateFish);
+    let ID = requestAnimationFrame(animateObjects);
+    animationIDs.push(ID);
 }
 
-function areImagesTouching(pescado) {
+function stopGame() {
+    animationIDs.forEach(id => {
+        cancelAnimationFrame(id);
+    });
+
+    animationIDs = []; // Limpia la lista de IDs almacenados
+}
+
+// Función para mostrar el mensaje de Game Over
+function showGameOver() {
+    Swal.fire({
+        title: 'Has perdido',
+        text: 'Perdiste todas tus vidas',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Jugar de nuevo',
+        cancelButtonText: 'Volver al inicio',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.reload(); 
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            location.reload();
+        }
+    });
+}
+
+function areImagesTouchingCat(obj){
     // Obtener la imagen del gato desde el DOM
     let imgCatRect = document.getElementById(localStorage.getItem('cat-selected')).getBoundingClientRect();
-    let fishRect = {
-        left: pescado.x,
-        right: pescado.x,
-        top: pescado.y,
-        bottom: pescado.y
+    let objRect = {
+        left: obj.x,
+        right: obj.x,
+        top: obj.y,
+        bottom: obj.y
     };
 
-    if (imgCatRect.right < fishRect.left || imgCatRect.left > fishRect.right || imgCatRect.bottom < fishRect.top || imgCatRect.top > fishRect.bottom) {
+    if(imgCatRect.right < objRect.left || imgCatRect.left > objRect.right || imgCatRect.bottom < objRect.top || imgCatRect.top > objRect.bottom) {
         return false;
     } else {
         return true;
@@ -258,7 +320,7 @@ const cat = {
 };
 
 btn_p.addEventListener('click', () => { 
-    var speed = 6000;
+    var speed = 4000;
 
     btn_p.classList.add('hide_down');
 
@@ -280,7 +342,8 @@ btn_p.addEventListener('click', () => {
     }, 16000)
 
     setInterval(() => {
-        pescados.push(createFish());
+        objects.push(createObject('fish'));
+        objects.push(createObject('stone'));
     }, speed);
 
     cat.stopAutoMove();
@@ -321,7 +384,7 @@ btn_p.addEventListener('click', () => {
         cat_move.move(key.code);
     };
 
-    animateFish();
+    animateObjects();
 });
 
 btn_mute.addEventListener('click', () => {
