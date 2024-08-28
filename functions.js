@@ -19,6 +19,9 @@ let array_cats = ['cat-1'];
 
 let hearts = document.getElementById('hearts');
 
+let gameRunning = false; // Variable para controlar el estado del juego
+let objectIntervalId; // Variable para almacenar el ID del intervalo de objetos
+
 // Obtener el canvas y su contexto
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -34,159 +37,20 @@ imgFish.src = './img/fish.png'; // Ruta de la imagen del pescado
 const imgStone = new Image();
 imgStone.src = './img/stone.jpg';
 
+const imgLasagna = new Image();
+imgLasagna.src = './img/lasagna.png'; // Ruta de la imagen de la lasaña
+
+const imgMilkBox = new Image();
+imgMilkBox.src = './img/milk.png'; // Ruta de la imagen de la caja de leche
+
 let objects = [];
 let animationIDs = [];
-
-function createObject(type){
-    let width, height;
-    
-    switch(type){
-        case 'fish':
-            width = 80;
-            height = 40;
-            break;
-        case 'stone':
-            width = 90;
-            height = 80;
-    }
-    return {
-        x: Math.random() * canvas.width,
-        y: -100,
-        velocidad: 4,
-        type: type,
-        width: width,
-        height: height,
-    }
-}
-
-// Función para dibujar el pescado en una posición específica
-function drawObject(img, object) {
-    ctx.drawImage(img, object.x, object.y, object.width, object.height);
-}
-
-// Función para animar la caída del pescado
-function animateObjects() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
-
-    objects.forEach((obj, index) => {
-        // Actualizar posición del pescado
-        obj.y += obj.velocidad;
-
-        let img = obj.type  == 'fish' ? imgFish : imgStone;
-
-        // Dibujar el pescado en su nueva posición
-        drawObject(img, obj);
-
-        // Si el pescado sale del canvas, reiniciar posición y posición X aleatoria
-        if (obj.y > canvas.height) {
-            obj.y = -100; // Reiniciar en la parte superior
-            obj.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
-        }
-
-        if(areImagesTouchingCat(obj)){
-            switch(obj.type){
-                case 'fish':
-                    let coins = parseInt(document.getElementById('coins').textContent, 10);
-                    coins += 100;
-                    document.getElementById('coins').textContent = coins;
-                    localStorage.setItem('coins', coins);
-                    objects.splice(index, 1);
-                    break;
-                case 'stone':
-                    let heartsImg = hearts.getElementsByTagName('img');
-                    if(heartsImg.length > 0){
-                        hearts.removeChild(heartsImg[heartsImg.length - 1]);
-                        if(heartsImg.length == 0) {
-                            stopGame();
-                            showGameOver();
-                        }
-                    }
-                    objects.splice(index, 1);
-                    break;
-            }
-        }
-    });
-
-    let ID = requestAnimationFrame(animateObjects);
-    animationIDs.push(ID);
-}
-
-function stopGame() {
-    animationIDs.forEach(id => {
-        cancelAnimationFrame(id);
-    });
-
-    animationIDs = []; // Limpia la lista de IDs almacenados
-}
-
-// Función para mostrar el mensaje de Game Over
-function showGameOver() {
-    Swal.fire({
-        title: 'Has perdido',
-        text: 'Perdiste todas tus vidas',
-        icon: 'error',
-        showCancelButton: true,
-        confirmButtonText: 'Jugar de nuevo',
-        cancelButtonText: 'Volver al inicio',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            location.reload(); 
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            location.reload();
-        }
-    });
-}
-
-function areImagesTouchingCat(obj){
-    // Obtener la imagen del gato desde el DOM
-    let imgCatRect = document.getElementById(localStorage.getItem('cat-selected')).getBoundingClientRect();
-    let objRect = {
-        left: obj.x,
-        right: obj.x,
-        top: obj.y,
-        bottom: obj.y
-    };
-
-    if(imgCatRect.right < objRect.left || imgCatRect.left > objRect.right || imgCatRect.bottom < objRect.top || imgCatRect.top > objRect.bottom) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function check_cats(){
-    cats.forEach(e => {
-        if(localStorage.getItem('cats').includes(e.id)){
-            e.querySelector('span').style.display = 'none';
-            e.classList.add('color');
-        }
-    });
-}
-
-function check_selected(){
-    cats.forEach(e => {
-        if(e.id != localStorage.getItem('cat-selected')){
-            e.querySelector('.fingerprint').style.display = 'none';
-            
-        } else {
-            e.querySelector('.fingerprint').style.display = 'block';
-        }
-    });
-
-    cats_screen.forEach(e => {
-        if(localStorage.getItem('cat-selected') != e.id){
-            e.style.display = 'none';
-        } else {
-            e.style.display = 'block';  
-        }
-    });
-}
 
 //Logica para comprar un gato
 cats.forEach(e =>{
     e.addEventListener('click', () => {
         if(!localStorage.getItem('cats').includes(e.id)){
-            let coins = parseInt(document.getElementById('coins').textContent, 10);
+            var coins = parseInt(document.getElementById('coins').textContent, 10);
             let pValue = parseInt(e.querySelector('p').textContent, 10);
     
             if(coins < pValue){
@@ -319,15 +183,13 @@ const cat = {
     }
 };
 
-btn_p.addEventListener('click', () => { 
+btn_p.addEventListener('click', () => {
     var speed = 4000;
 
     btn_p.classList.add('hide_down');
-
     btn_c.classList.add('hide_up');
     btn_s.classList.add('hide_up');
     title.classList.add('hide_up');
-
     hearts.classList.add('show_hearts');
     
     if(localStorage.getItem('mute') === 'true'){
@@ -337,13 +199,19 @@ btn_p.addEventListener('click', () => {
         audio.play();
     }
 
-    setInterval(() => {
-        speed -= 1000;
-    }, 16000)
+    // Asegúrate de detener cualquier animación previa antes de iniciar nuevas
+    stopGame();
 
-    setInterval(() => {
-        objects.push(createObject('fish'));
-        objects.push(createObject('stone'));
+    // Iniciar el intervalo para agregar objetos
+    gameRunning = true;
+    objectIntervalId = setInterval(() => {
+        if (gameRunning) {
+            speed -= 1000;
+            objects.push(createObject('fish'));
+            objects.push(createObject('stone'));
+            objects.push(createObject('lasagna'));
+            objects.push(createObject('milk-box'));
+        }
     }, speed);
 
     cat.stopAutoMove();
@@ -384,6 +252,7 @@ btn_p.addEventListener('click', () => {
         cat_move.move(key.code);
     };
 
+    // Iniciar la animación de objetos
     animateObjects();
 });
 
@@ -421,3 +290,197 @@ btn_skip_s.addEventListener('click', () => {
     menu_s.classList.remove('show_menu');
 });
 
+function createObject(type){
+    let width, height;
+    
+    switch(type){
+        case 'fish':
+            width = 80;
+            height = 40;
+            break;
+        case 'stone':
+            width = 90;
+            height = 80;
+            break;
+        case 'lasagna':
+            width = 80; // Ajusta el tamaño según tu imagen
+            height = 80;
+            break;
+        case 'milk-box':
+            width = 80; // Ajusta el tamaño según tu imagen
+            height = 80;
+            break;
+    }
+
+    return {
+        x: Math.random() * canvas.width,
+        y: -100,
+        velocidad: 4,
+        type: type,
+        width: width,
+        height: height,
+    }
+}
+
+// Función para dibujar el pescado en una posición específica
+function drawObject(img, object) {
+    ctx.drawImage(img, object.x, object.y, object.width, object.height);
+}
+
+function animateObjects() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
+
+    objects.forEach((obj, index) => {
+        // Actualizar posición del objeto
+        obj.y += obj.velocidad;
+
+        let img;
+        switch (obj.type) {
+            case 'fish':
+                img = imgFish;
+                break;
+            case 'stone':
+                img = imgStone;
+                break;
+            case 'lasagna':
+                img = imgLasagna;
+                break;
+            case 'milk-box':
+                img = imgMilkBox;
+                break;
+        }
+
+        // Dibujar el objeto en su nueva posición
+        drawObject(img, obj);
+
+        // Si el objeto sale del canvas, reiniciar posición y posición X aleatoria
+        if (obj.y > canvas.height) {
+            obj.y = -100; // Reiniciar en la parte superior
+            obj.x = Math.random() * canvas.width; // Posición aleatoria en el ancho del canvas
+        }
+
+        if (areImagesTouchingCat(obj)) {
+            switch (obj.type) {
+                case 'milk-box':
+                    var coins = parseInt(document.getElementById('coins').textContent, 10);
+                    coins += 50;
+                    document.getElementById('coins').textContent = coins;
+                    localStorage.setItem('coins', coins);
+                    objects.splice(index, 1);
+                    break;
+                case 'fish':
+                    var coins = parseInt(document.getElementById('coins').textContent, 10);
+                    coins += 100;
+                    document.getElementById('coins').textContent = coins;
+                    localStorage.setItem('coins', coins);
+                    objects.splice(index, 1);
+                    break;
+                case 'lasagna':
+                    var coins = parseInt(document.getElementById('coins').textContent, 10);
+                    coins += 200;
+                    document.getElementById('coins').textContent = coins;
+                    localStorage.setItem('coins', coins);
+                    objects.splice(index, 1);
+                    break;
+                case 'stone':
+                    let heartsImg = hearts.getElementsByTagName('img');
+                    if (heartsImg.length > 0) {
+                        hearts.removeChild(heartsImg[heartsImg.length - 1]);
+                        if (heartsImg.length == 0) {
+                            hearts.style.display = 'none';
+                            stopGame();
+                            showGameOver();
+                        }
+                    }
+                    objects.splice(index, 1);
+                    break;
+            }
+        }
+    });
+
+    let ID = requestAnimationFrame(animateObjects);
+    animationIDs.push(ID);
+}
+
+function stopGame() {
+    // Detener todas las animaciones en curso
+    animationIDs.forEach(id => {
+        cancelAnimationFrame(id);
+    });
+    animationIDs = [];
+
+    // Limpiar el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Vaciar la lista de objetos
+    objects = [];
+
+    // Detener el intervalo de objetos
+    if (objectIntervalId) {
+        clearInterval(objectIntervalId);
+        objectIntervalId = null;
+    }
+
+    // Cambiar el estado del juego
+    gameRunning = false;
+}
+
+// Función para mostrar el mensaje de Game Over
+function showGameOver() {
+    Swal.fire({
+        title: 'Has perdido',
+        text: 'Perdiste todas tus vidas',
+        icon: 'error',
+        confirmButtonText: 'Volver al inicio',
+        allowOutsideClick: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.reload(); 
+        }
+    });
+}
+
+function areImagesTouchingCat(obj){
+    // Obtener la imagen del gato desde el DOM
+    let imgCatRect = document.getElementById(localStorage.getItem('cat-selected')).getBoundingClientRect();
+    let objRect = {
+        left: obj.x,
+        right: obj.x,
+        top: obj.y,
+        bottom: obj.y
+    };
+
+    if(imgCatRect.right < objRect.left || imgCatRect.left > objRect.right || imgCatRect.bottom < objRect.top || imgCatRect.top > objRect.bottom) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function check_cats(){
+    cats.forEach(e => {
+        if(localStorage.getItem('cats').includes(e.id)){
+            e.querySelector('span').style.display = 'none';
+            e.classList.add('color');
+        }
+    });
+}
+
+function check_selected(){
+    cats.forEach(e => {
+        if(e.id != localStorage.getItem('cat-selected')){
+            e.querySelector('.fingerprint').style.display = 'none';
+            
+        } else {
+            e.querySelector('.fingerprint').style.display = 'block';
+        }
+    });
+
+    cats_screen.forEach(e => {
+        if(localStorage.getItem('cat-selected') != e.id){
+            e.style.display = 'none';
+        } else {
+            e.style.display = 'block';  
+        }
+    });
+}
