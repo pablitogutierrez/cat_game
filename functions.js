@@ -19,6 +19,20 @@ let array_cats = ['cat-1'];
 
 let hearts = document.getElementById('hearts');
 
+let controls = document.querySelector('.controls');
+
+// Establecer la posición X aleatoria del gato al cargar la página
+const container = document.querySelector('.container-principal');
+const containerWidth = container.offsetWidth;
+const catElement = document.querySelector('.cat');
+const catWidth = catElement.offsetWidth;
+
+// Posición X aleatoria para el gato, considerando el ancho del gato
+const randomPosition = Math.random() * (containerWidth - catWidth);
+catElement.style.left = randomPosition + 'px';
+
+console.log(document.querySelector('body').offsetWidth);
+
 let gameRunning = false; // Variable para controlar el estado del juego
 let objectIntervalId; // Variable para almacenar el ID del intervalo de objetos
 
@@ -137,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const cat = {
     element: document.querySelector('.cat'),
     container: document.querySelector('.container-principal'),
-    leftPosition: 0,
+    leftPosition: parseFloat(document.querySelector('.cat').style.left) || 0,
     step: 25,
     updateInterval: null, // Variable para almacenar el intervalo de actualización
 
@@ -184,6 +198,11 @@ const cat = {
 };
 
 btn_p.addEventListener('click', () => {
+    if(document.querySelector('body').offsetWidth <= 600){
+        catElement.style.bottom = '60px';
+        controls.classList.add('show_controls');
+    }
+
     var speed = 4000;
 
     btn_p.classList.add('hide_down');
@@ -227,6 +246,7 @@ btn_p.addEventListener('click', () => {
 
             switch (direction) {
                 case "ArrowRight":
+                case "arrow-right":
                 case "KeyD":
                     if (this.leftPosition + this.step + catWidth <= containerWidth) {
                         this.leftPosition += this.step;
@@ -235,6 +255,7 @@ btn_p.addEventListener('click', () => {
                     }
                     break;
                 case "ArrowLeft":
+                case "arrow-left":
                 case "KeyA":
                     if (this.leftPosition - this.step >= 0) {
                         this.leftPosition -= this.step;
@@ -251,6 +272,13 @@ btn_p.addEventListener('click', () => {
     onkeydown = (key) => {
         cat_move.move(key.code);
     };
+
+    document.querySelector('.controls').querySelectorAll('img').forEach(img => {
+        img.addEventListener('click', () => {
+            var direction = img.id == 'arrow-left' ? 'arrow-left' : 'arrow-right';
+            cat_move.move(direction);
+        });
+    });
 
     // Iniciar la animación de objetos
     animateObjects();
