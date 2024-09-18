@@ -12,14 +12,15 @@ body{
 }
 
 .container-principal{
-    background: #85C1E9;
+    background-image: url(./img/city.gif);
+    background-size: cover;
+    background-position: center;
 }
 
 .cat{
     width: 150px;
-    height: 150px;
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
 
     & img{
         width: 150px;
@@ -45,6 +46,12 @@ body{
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
+        
+        text-shadow: 
+        -1px -1px 0 white,  
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white;
     }
 }
 
@@ -226,6 +233,21 @@ body{
     & .color{
         background: #58D68D;
     }
+
+    & a{
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #333;
+     
+        & img{
+            width: 60px;
+        }
+    }
 }
 
 .btn-play{
@@ -289,7 +311,6 @@ body{
     padding: 5px;
     display: flex;
     align-items: center;
-    gap: 5px;
     background: #ECF0F1;
     outline: 3px solid #111;
 
@@ -495,6 +516,8 @@ body{
     }
 
     .cat{
+        width: 120px;
+
         & img{
             width: 120px;
         }
@@ -594,6 +617,45 @@ body{
 }
 
 @media screen and (max-width: 400px) {
+    .menu-s{
+        & .img-mute{
+            width: 45px;
+            height: 45px;
+        }
+
+        & a{
+            font-size: 14px;
+
+            & img{
+                width: 45px;
+            }
+        }
+    }
+
+    .hearts{
+        right: 10px;
+    }
+
+    .btn-colors{
+        right: 10px;
+    }
+
+    .btn-setting{
+        right: 85px;
+    }
+
+    .coins{
+        left: 10px;
+    }
+
+    .cat{
+        width: 100px;
+        
+        & img {
+            width: 100px;
+        }
+    }
+
     #title{
         top: 26%;
     }

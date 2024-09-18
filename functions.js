@@ -31,8 +31,6 @@ const catWidth = catElement.offsetWidth;
 const randomPosition = Math.random() * (containerWidth - catWidth);
 catElement.style.left = randomPosition + 'px';
 
-console.log(document.querySelector('body').offsetWidth);
-
 let gameRunning = false; // Variable para controlar el estado del juego
 let objectIntervalId; // Variable para almacenar el ID del intervalo de objetos
 
@@ -198,9 +196,114 @@ const cat = {
 };
 
 btn_p.addEventListener('click', () => {
-    if(document.querySelector('body').offsetWidth <= 600){
-        catElement.style.bottom = '60px';
+        if(document.querySelector('body').offsetWidth <= 600 && document.querySelector('body').offsetWidth > 400){
+            catElement.style.transition = '.6s';
+            catElement.style.bottom = '120px';
+            
+            setTimeout(() => {
+                catElement.style.transition = 'none';
+            }, 800);
+
+            controls.classList.add('show_controls');
+
+            function createObject(type){
+                let width, height;
+                
+                switch(type){
+                    case 'fish':
+                        width = 60;
+                        height = 30;
+                        break;
+                    case 'stone':
+                        width = 70;
+                        height = 60;
+                        break;
+                    case 'lasagna':
+                        width = 60; 
+                        height = 60;
+                        break;
+                    case 'milk-box':
+                        width = 60; 
+                        height = 60;
+                        break;
+                }
+            
+                return {
+                    x: Math.random() * canvas.width,
+                    y: -100,
+                    velocidad: 4,
+                    type: type,
+                    width: width,
+                    height: height,
+                }
+            }
+        } else if(document.querySelector('body').offsetWidth <= 400) {
+        catElement.style.bottom = '120px';
         controls.classList.add('show_controls');
+
+        function createObject(type){
+            let width, height;
+            
+            switch(type){
+                case 'fish':
+                    width = 50;
+                    height = 25;
+                    break;
+                case 'stone':
+                    width = 60;
+                    height = 50;
+                    break;
+                case 'lasagna':
+                    width = 50; 
+                    height = 50;
+                    break;
+                case 'milk-box':
+                    width = 50; 
+                    height = 50;
+                    break;
+            }
+        
+            return {
+                x: Math.random() * canvas.width,
+                y: -100,
+                velocidad: 4,
+                type: type,
+                width: width,
+                height: height,
+            }
+        }
+    } else {
+        function createObject(type){
+            let width, height;
+            
+            switch(type){
+                case 'fish':
+                    width = 80;
+                    height = 40;
+                    break;
+                case 'stone':
+                    width = 90;
+                    height = 80;
+                    break;
+                case 'lasagna':
+                    width = 80; 
+                    height = 80;
+                    break;
+                case 'milk-box':
+                    width = 80; 
+                    height = 80;
+                    break;
+            }
+        
+            return {
+                x: Math.random() * canvas.width,
+                y: -100,
+                velocidad: 4,
+                type: type,
+                width: width,
+                height: height,
+            }
+        }
     }
 
     var speed = 4000;
@@ -317,38 +420,6 @@ btn_skip_s.addEventListener('click', () => {
     btn_s.classList.remove('hide_up');
     menu_s.classList.remove('show_menu');
 });
-
-function createObject(type){
-    let width, height;
-    
-    switch(type){
-        case 'fish':
-            width = 80;
-            height = 40;
-            break;
-        case 'stone':
-            width = 90;
-            height = 80;
-            break;
-        case 'lasagna':
-            width = 80; // Ajusta el tamaño según tu imagen
-            height = 80;
-            break;
-        case 'milk-box':
-            width = 80; // Ajusta el tamaño según tu imagen
-            height = 80;
-            break;
-    }
-
-    return {
-        x: Math.random() * canvas.width,
-        y: -100,
-        velocidad: 4,
-        type: type,
-        width: width,
-        height: height,
-    }
-}
 
 // Función para dibujar el pescado en una posición específica
 function drawObject(img, object) {
