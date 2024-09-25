@@ -238,40 +238,46 @@ btn_p.addEventListener('click', () => {
                 }
             }
         } else if(document.querySelector('body').offsetWidth <= 400) {
-        catElement.style.bottom = '120px';
-        controls.classList.add('show_controls');
-
-        function createObject(type){
-            let width, height;
+            catElement.style.transition = '.6s';
+            catElement.style.bottom = '120px';
             
-            switch(type){
-                case 'fish':
-                    width = 50;
-                    height = 25;
-                    break;
-                case 'stone':
-                    width = 60;
-                    height = 50;
-                    break;
-                case 'lasagna':
-                    width = 50; 
-                    height = 50;
-                    break;
-                case 'milk-box':
-                    width = 50; 
-                    height = 50;
-                    break;
+            setTimeout(() => {
+                catElement.style.transition = 'none';
+            }, 800);
+
+            controls.classList.add('show_controls');
+
+            function createObject(type){
+                let width, height;
+                
+                switch(type){
+                    case 'fish':
+                        width = 50;
+                        height = 25;
+                        break;
+                    case 'stone':
+                        width = 60;
+                        height = 50;
+                        break;
+                    case 'lasagna':
+                        width = 50; 
+                        height = 50;
+                        break;
+                    case 'milk-box':
+                        width = 50; 
+                        height = 50;
+                        break;
+                }
+            
+                return {
+                    x: Math.random() * canvas.width,
+                    y: -100,
+                    velocidad: 4,
+                    type: type,
+                    width: width,
+                    height: height,
+                }
             }
-        
-            return {
-                x: Math.random() * canvas.width,
-                y: -100,
-                velocidad: 4,
-                type: type,
-                width: width,
-                height: height,
-            }
-        }
     } else {
         function createObject(type){
             let width, height;
